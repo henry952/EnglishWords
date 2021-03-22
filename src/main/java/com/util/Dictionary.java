@@ -4,10 +4,10 @@ public class Dictionary {
 
 	public static boolean isEnglishWord(String word) {
 		boolean flag = false;
-		double percent = 0.0001; // set 0.01% of string are English words
+		// set 0.1% of string are English words
+		double percent = 0.001; 
 		double rand = Math.random() ;
 		
-//		System.out.println(rand + "\t - " + (rand > (1 - percent)) + "\t => " + (rand - (1 - percent)));
 		if(rand > 1 - percent)
 			flag = true;
 	

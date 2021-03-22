@@ -1,18 +1,25 @@
-package com.util;
+package com.modules;
 
 import java.util.HashSet;
 import java.util.Set;
 
-public class ProcessString {
-	public Set<String> getAllWordSets(String str){
-		char[] cs = str.toCharArray();
-		Set<String> words = new HashSet<>();
-		for(int i=1; i<= cs.length; i++)
-			words.addAll(getWordList(cs, i));
+import com.util.Dictionary;
+
+public class EnglishWords {
+	Set<String> words;
+	
+	public Set<String> getWordSet(String str) {
+		if(words == null) {
+			char[] cs = str.toCharArray();
+			words = new HashSet<>();
+			for(int i=1; i<= cs.length; i++)
+				words.addAll(getWordList(cs, i));
+		}
+		
 		return words;
 	}
-		
-	public Set<String> getWordList(char arr[], int strLen){
+	
+	private Set<String> getWordList(char arr[], int strLen){
 		int len = arr.length;
 		Set<String> wordSet = new HashSet<>();
 		String str = "";
@@ -21,11 +28,11 @@ public class ProcessString {
 	    	if(Dictionary.isEnglishWord(str))
 	    		wordSet.add(str);
 	    }
-//	    System.out.println(set);
-//	    System.out.println(set.size());
+//	    System.out.println(wordSet);
+//	    System.out.println(wordSet.size());
 	    return wordSet;
 	}
-
+	
 	private String getALengthString(int nth, char arr[], int strLen){		
 		int arrLen = arr.length;
 		StringBuilder sb = new StringBuilder();
@@ -34,7 +41,6 @@ public class ProcessString {
 	        sb.append(arr[nth % arrLen]);
 	        nth /= arrLen;
 	    }
-//	    System.out.println(sb);
 	    return sb.toString();
 	}
 }

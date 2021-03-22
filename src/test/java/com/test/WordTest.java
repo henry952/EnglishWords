@@ -1,32 +1,38 @@
 package com.test;
 
+import java.util.HashSet;
 import java.util.Set;
 import org.testng.Assert;
 
 import org.testng.annotations.Test;
 
-import com.util.ProcessString;
-import com.util.VerifyEnglishWords;
+import com.modules.EnglishWords;
+import com.util.Comparison;
+import com.util.ProcessString;  // Application class
 
 public class WordTest {
-	VerifyEnglishWords verifWords;
+	EnglishWords ew;
 	ProcessString ps;
+	Comparison comp;
 	
 	public WordTest() {
-		verifWords = new VerifyEnglishWords();
-		ps = new ProcessString(); 
+		ps = new ProcessString();
+		ew = new EnglishWords(); 
+		comp = new Comparison();
 	}
+
 	@Test
-	public void validateStringsAreWords() {
-		// prepare test data and verification data
-		String inputStr = "Working";
-		int num = 5000;
-		Set<String> words = ps.findWordsFromString(inputStr, num);
-		int expected = 100;
+	public void validateWordsSet() {
+		String testingWord = "Working";
+		// should use this line in real test to get result by executing Application code
+	//	Set<String> wordsFromApp = ps.getAllWordSets(testingWord);
 		
-		// must get 100% in real dictionary, but won't get 100% here because of only small percentage passed in mocked function 
-		int percentage = verifWords.validStringsAreWords(words); 
-		System.out.println(percentage + "% of input strings are real English words.");
-		Assert.assertTrue(percentage == expected);
+		Set<String> expectedWordSet = ew.getWordSet(testingWord);
+		// clone the expected result for code testing purpose
+		Set<String> wordsFromApp = new HashSet<>(expectedWordSet);
+		
+		Assert.assertTrue(comp.isWordSetsIdentical(wordsFromApp, expectedWordSet));
+		
 	}
+
 }
